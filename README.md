@@ -1,1 +1,1 @@
-# pixels_project
+Pixel Project 2
