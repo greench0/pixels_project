@@ -131,7 +131,7 @@ app.get('/post/:id', function (req, res) {
 	if (error) throw error;
 	var username = req.session.user_name;
 	var userid = req.session.user_id;
-
+ 
 		res.render('pages/post', {
 			data: results,
 			username,
