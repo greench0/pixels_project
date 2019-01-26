@@ -1,10 +1,26 @@
 var express = require("express");
-var app = express.Router();
+// var app = express.Router();
 var app = express();
 var bcrypt = require('bcryptjs');
 
+
 Handlebars = require('handlebars');
 var exphbs = require("express-handlebars");
+
+var hbs = exphbs.create({
+	handlebars: Handlebars,
+	defaultLayout: "main",
+	// Specify helpers which are only registered on this instance.
+	helpers: {
+		foo: function (a) { return 'FOO!' + a; },
+		bar: function (b) { return 'BAR!' + b; },
+		
+	}
+});
+
+// ==========================
+app.engine("handlebars", hbs.engine); //setting up file extension
+app.set("view engine", "handlebars"); 
 
 // var pixels = require("../models/pixels.js");
 var connection = require ('../config/connection.js');
@@ -17,7 +33,9 @@ app.use(session({ secret: 'app', cookie: { maxAge: 1*1000*60*60*24*365 }}));
 app.use(cookieParser());
 
 
+app.use(express.static(process.cwd() + "/public"));
 
+// manny eample
 app.get('/currentuser', function(req, res){
 	var currentUser = req.session.user_name;
 	if(!currentUser){
