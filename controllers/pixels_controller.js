@@ -43,14 +43,20 @@ app.use(express.static(process.cwd() + "/public"));
 // Create all our routes and set up logic within those routes where required.
 // ==============================================================================================================================
 //Create GET / render Routes
+// app.get('/', function(req, res){
+// 	var username = req.session.user_name;
+// 	var userid = req.session.user_id;
+// 	  res.render('pages/index', {
+// 		username,
+// 		userid
+// 	  });
+// })
 app.get('/', function(req, res){
-	var username = req.session.user_name;
-	var userid = req.session.user_id;
-	  res.render('pages/index', {
-		username,
-		userid
-	  });
+
+	  res.send('hi') 
+	
 })
+
 
 app.get('/create', function (req, res) {
 	var username = req.session.user_name;
