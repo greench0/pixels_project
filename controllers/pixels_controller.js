@@ -27,7 +27,6 @@ var hbs = exphbs.create({
 app.engine("handlebars", hbs.engine); //setting up file extension
 app.set("view engine", "handlebars"); 
 
-
 //allow sessions
 app.use(session({ 
 	secret: 'app', 
