@@ -8,7 +8,7 @@ var app = express();
 // var pixels = require("../models/pixels.js");
 var bcrypt = require('bcryptjs');
 var cookieParser = require('cookie-parser');
-var session = require('express-session');
+// var session = require('express-session');
 
 
 // var methodOverride = require('method-override');
@@ -33,12 +33,12 @@ app.engine("handlebars", hbs.engine); //setting up file extension
 app.set("view engine", "handlebars"); 
 
 //allow sessions
-app.use(session({ 
-	secret: 'app', 
-	resave: true,
-    saveUninitialized: true,
-	cookie: { maxAge: 1*1000*60*60*24*365 }
-}));
+// app.use(session({ 
+// 	secret: 'app', 
+// 	resave: true,
+//     saveUninitialized: true,
+// 	cookie: { maxAge: 1*1000*60*60*24*365 }
+// }));
 
 app.use(cookieParser());
 
@@ -49,11 +49,11 @@ app.use(express.static(process.cwd() + "/public"));
 // ==============================================================================================================================
 //Create GET / render Routes
 app.get('/', function(req, res){
-	var username = req.session.user_name;
-	var userid = req.session.user_id;
+	// var username = req.session.user_name;
+	// var userid = req.session.user_id;
 	  res.render('pages/index', {
-		username,
-		userid
+		// username,
+		// userid
 	  });
 })
 // app.get('/', function(req, res){
@@ -64,20 +64,20 @@ app.get('/', function(req, res){
 
 
 app.get('/create', function (req, res) {
-	var username = req.session.user_name;
-	var userid = req.session.user_id;
+	// var username = req.session.user_name;
+	// var userid = req.session.user_id;
 	res.render('pages/create', {
-		username,
-		userid
+		// username,
+		// userid
 	});
 })
 
 app.get('/created', function (req, res) {
-	var username = req.session.user_name;
-	var userid = req.session.user_id;
+	// var username = req.session.user_name;
+	// var userid = req.session.user_id;
 	res.render('pages/created', {
-		username,
-		userid
+		// username,
+		// userid
 	});
 })
 
@@ -85,22 +85,22 @@ app.get('/welcome', function (req, res) {
 	connection.query('SELECT * FROM user_posts LEFT OUTER JOIN users2 ON users2.user_id = user_posts.user_id ORDER BY post_id DESC;', function (error, results, fields) {
 		if (error) throw error;
 
-	var username = req.session.user_name;
-	var userid = req.session.user_id;
+	// var username = req.session.user_name;
+	// var userid = req.session.user_id;
 	res.render('pages/welcome', {
 		data: results,
-		username,
-		userid
+		// username,
+		// userid
 	});
 });
 })
 
 app.get('/signedup', function (req, res) {
-	var username = req.session.user_name;
-	var userid = req.session.user_id;
+	// var username = req.session.user_name;
+	// var userid = req.session.user_id;
 	res.render('pages/signedup', {
-		username,
-		userid
+		// username,
+		// userid
 	});
 })
 
@@ -108,43 +108,43 @@ app.get('/gallery', function (req, res) {
 	connection.query('SELECT * FROM user_posts LEFT OUTER JOIN users2 ON users2.user_id = user_posts.user_id ORDER BY post_id DESC;', function (error, results, fields) {
 		if (error) throw error;
 
-		var username = req.session.user_name;
-		var userid = req.session.user_id;
+		// var username = req.session.user_name;
+		// var userid = req.session.user_id;
 
 		res.render('pages/gallery', {
 			data: results,
-			username,
-			userid
+			// username,
+			// userid
 			
 		});
 	});
 })
 
 app.get('/login', function (req, res) {
-	var username = req.session.user_name;
+	// var username = req.session.user_name;
 
 	res.render('pages/login', {
-		username
+		// username
 	  });
 	});
 
 app.get('/signup', function (req, res) {
-	var username = req.session.user_name;
+	// var username = req.session.user_name;
 	res.render('pages/signup', {
-		username
+		// username
 	});
 });
 
 app.get('/user/:id', function (req, res) {
 	connection.query('SELECT * FROM users2 LEFT OUTER JOIN user_posts ON users2.user_id = user_posts.user_id WHERE user_posts.user_id = ?', [req.params.id], function (error, results, fields) {
 		if (error) throw error;
-		var username = req.session.user_name;
-		var userid = req.session.user_id;
+		// var username = req.session.user_name;
+		// var userid = req.session.user_id;
 
 		res.render('pages/user', {
 			data: results,
-			username,
-			userid,
+			// username,
+			// userid,
 			
 		});
 	});
@@ -153,13 +153,13 @@ app.get('/user/:id', function (req, res) {
 app.get('/post/:id', function (req, res) {
 	connection.query('SELECT * FROM user_posts LEFT OUTER JOIN users2 ON users2.user_id = user_posts.user_id WHERE post_id = ?', [req.params.id], function (error, results, fields) {
 	if (error) throw error;
-	var username = req.session.user_name;
-	var userid = req.session.user_id;
+	// var username = req.session.user_name;
+	// var userid = req.session.user_id;
  
 		res.render('pages/post', {
 			data: results,
-			username,
-			userid
+			// username,
+			// userid
 		});
 	});
 })
