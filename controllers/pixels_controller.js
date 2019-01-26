@@ -35,21 +35,21 @@ app.use(session({
     saveUninitialized: true,
 	cookie: { maxAge: 1*1000*60*60*24*365 }
 }));
+
 app.use(cookieParser());
 
 
 app.use(express.static(process.cwd() + "/public"));
 
 // manny eample
-app.get('/currentuser', function(req, res){
-	var currentUser = req.session.user_name;
-	if(!currentUser){
-		return res.send("You need to be logged in to do that");
-	} else {
-		res.json(currentUser);
-	}
-});
-
+// app.get('/currentuser', function(req, res){
+// 	var currentUser = req.session.user_name;
+// 	if(!currentUser){
+// 		return res.send("You need to be logged in to do that");
+// 	} else {
+// 		res.json(currentUser);
+// 	}
+// });
 // Create all our routes and set up logic within those routes where required.
 // ==============================================================================================================================
 //Create GET / render Routes
@@ -212,7 +212,6 @@ app.post('/signupform', function (req, res) {
 		// res.send(salt);
 		bcrypt.hash(password, salt, function (err, p_hash) {
 
-			// res.send(p_hash);
 
 			connection.query('INSERT INTO users2 (user_name, password_hash) VALUES (?, ?)', [username, p_hash], function (error, results, fields) {
 
@@ -228,8 +227,7 @@ app.post('/signupform', function (req, res) {
 	});
 });
 
-// localhost:3000/login/user_name/password
-// localhost:3000/login?user_name=name&password=name
+
 app.post('/login', function (req, res) {
 	var username = req.body.username;
 	var password = req.body.password;
@@ -258,10 +256,6 @@ app.post('/login', function (req, res) {
 		}
 	});
 });
-
-
-// app.locals.user = req.session.user_id;
-
 
 
 app.get('/another-page', function (req, res) {
