@@ -4,8 +4,6 @@ $(document).ready(function () {
 $("#hidden").hide();
 
 
-
-
 // function to create arboard blocks
 const totalBlocks = 144;
 
@@ -142,41 +140,7 @@ var colorData = [
 ];
 
 //==================================================================================================================================================================//
-// ==============================
 
-
-  // $('#signin').on('submit', function(e){
-  //   e.preventDefault();
-  //   var username = $('.sign_in_user_name').val();
-  //   var password = $('.sign_in_password').val();
-  //   console.log(username, password);
-  //   $.post('/login', {username: username, password: password}, function(data){
-  //   })
-  //   // window.location= "/login";
-  // });
-
- 
-
-// ====================================================================
-// make gallery blocks for editing
-
-  // function makeGalleryData(blockTotal) {
-  //   for (i = 0; i < blockTotal; i++) {
-  //     var create = $('<div style="background: {{this.post_data'  + i +'}}" class="b0 data"></div>');
-  //     $('.gallery-board').append(create);
-  //   }
-  // };
-
-  // makeGalleryData(256);
-
-  // function makeGalleryData(blockTotal) {
-  //   for (i = 0; i < blockTotal; i++) {
-  //     var create = $('<div data="post_data' + i + 'VARCHAR(30),"></div>');
-  //     $('.gallery-board').append(create);
-  //   }
-  // };
-
-  // makeGalleryData(196);
 
   
 //==================================================================================================================================================================//

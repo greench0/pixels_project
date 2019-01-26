@@ -190,7 +190,7 @@ app.get('/post-post/:post_id', function (req, res) {
 
 // =============================================================
 // login routes
-// http://localhost:3000/users/1
+
 app.get('/users/:user_id', function (req, res) {
 	connection.query('SELECT * FROM users2 WHERE user_id = ?', [req.params.user_id], function (error, results, fields) {
 		if (error) throw error;
@@ -199,18 +199,14 @@ app.get('/users/:user_id', function (req, res) {
 	});
 });
 
-// localhost:3000/signup/pavan/pavan
-// localhost:3000/signup/guest/guest
 app.post('/signupform', function (req, res) {
 
 	var username = req.body.username;
 	var password = req.body.password;
 
 	bcrypt.genSalt(10, function (err, salt) {
-		// res.send(salt);
-		bcrypt.hash(password, salt, function (err, p_hash) {
 
-			// res.send(p_hash);
+		bcrypt.hash(password, salt, function (err, p_hash) {
 
 			connection.query('INSERT INTO users2 (user_name, password_hash) VALUES (?, ?)', [username, p_hash], function (error, results, fields) {
 
@@ -226,8 +222,7 @@ app.post('/signupform', function (req, res) {
 	});
 });
 
-// localhost:3000/login/user_name/password
-// localhost:3000/login?user_name=name&password=name
+
 app.post('/login', function (req, res) {
 	var username = req.body.username;
 	var password = req.body.password;
@@ -236,7 +231,7 @@ app.post('/login', function (req, res) {
 		if (error) throw error;
 
 		if (results.length == 0) {
-			// res.send('try again');
+
 			res.redirect('/login');
 		} else {
 			bcrypt.compare(password, results[0].password_hash, function (err, result) {
@@ -246,9 +241,8 @@ app.post('/login', function (req, res) {
 					req.session.user_id = results[0].user_id;
 					req.session.user_name = results[0].user_name;
 
-					//   res.send('you are logged in');
 					res.render('pages/welcome');
-					// res.redirect()
+
 				} else {
 					res.redirect('/login');
 				}
@@ -256,10 +250,6 @@ app.post('/login', function (req, res) {
 		}
 	});
 });
-
-
-// app.locals.user = req.session.user_id;
-
 
 
 app.get('/another-page', function (req, res) {

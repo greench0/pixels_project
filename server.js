@@ -3,17 +3,10 @@ var routes = require("./controllers/pixels_controller.js");
 var express = require('express');
 var app = express();
 
-
-
-
 app.use(routes);
-// =============================================================
-	//making sure bodyparser is set up so that we can use req.body in app.post requests
 
 
 // =============================================================
-//session stuff
-
 
 	// =============================================================
 // app.listen(3000, function(){
