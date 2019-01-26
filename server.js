@@ -11,13 +11,15 @@ var app = express();
 // // parse application/json
 // app.use(bodyParser.json());
 
-
 app.use(routes);
 // =============================================================
 
+// =============================================================
+// app.listen(3000, function(){
+// 	console.log('listening on 3000')
+// });
 
-// =============================================================
-// =============================================================
-app.listen(3000, function(){
-	console.log('listening on 3000')
+var port = process.env.PORT || 3000;
+app.listen(port, "0.0.0.0", function() {
+console.log("Listening on Port 3000");
 });
