@@ -25,6 +25,7 @@ app.use(methodOverride('_method'));
 	var bcrypt = require('bcryptjs');
 	var cookieParser = require('cookie-parser');
 	var session = require('express-session');
+
 	//allow sessions
 	app.use(session({ secret: 'app', cookie: { maxAge: 1*1000*60*60*24*365 }}));
 	app.use(cookieParser());

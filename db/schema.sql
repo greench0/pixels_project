@@ -1,10 +1,8 @@
--- DROP DATABASE IF EXISTS another_users_db;
-
-CREATE DATABASE another_users_db;
+CREATE DATABASE IF NOT EXISTS another_users_db;
 
 USE another_users_db;
 
-CREATE TABLE users2(
+CREATE TABLE IF NOT EXISTS users2(
 	user_id INT NOT NULL AUTO_INCREMENT,
 	user_name VARCHAR(255) NOT NULL UNIQUE,
 	password_hash VARCHAR(255) NOT NULL,
@@ -13,7 +11,7 @@ CREATE TABLE users2(
 );
 
 
-CREATE TABLE user_posts (
+CREATE TABLE IF NOT EXISTS user_posts (
 post_id INT AUTO_INCREMENT, 
 user_id INT, post_info VARCHAR(999) NOT NULL, 
 post_createtime  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
@@ -24,7 +22,7 @@ PRIMARY KEY(post_id)
 );
 
 
-CREATE TABLE post_likes (
+CREATE TABLE IF NOT EXISTS post_likes (
 post_id INT , 
 user_id INT
 );
