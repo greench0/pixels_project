@@ -29,7 +29,12 @@ var bcrypt = require('bcryptjs');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 //allow sessions
-app.use(session({ secret: 'app', cookie: { maxAge: 1*1000*60*60*24*365 }}));
+app.use(session({ 
+	secret: 'app', 
+	resave: true,
+    saveUninitialized: true,
+	cookie: { maxAge: 1*1000*60*60*24*365 }
+}));
 app.use(cookieParser());
 
 
