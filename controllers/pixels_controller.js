@@ -1,37 +1,16 @@
-var connection = require ('../config/connection.js');
-
 var express = require("express");
-// var app = express.Router();
+var app = express.Router();
 var app = express();
-
-
-// var pixels = require("../models/pixels.js");
-var bcrypt = require('bcryptjs');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
-
-
-// var methodOverride = require('method-override');
-// app.use(methodOverride('_method'));
 
 var handlebars = require('handlebars');
 var exphbs = require("express-handlebars");
 
-var hbs = exphbs.create({
-	handlebars: handlebars,
-	defaultLayout: "main",
-	// Specify helpers which are only registered on this instance.
-	helpers: {
-		foo: function (a) { return 'FOO!' + a; },
-		bar: function (b) { return 'BAR!' + b; },
-		
-	}
-});
+// var pixels = require("../models/pixels.js");
+var connection = require ('../config/connection.js');
 
-// ==========================
-app.engine("handlebars", hbs.engine); //setting up file extension
-app.set("view engine", "handlebars"); 
-
+var bcrypt = require('bcryptjs');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 //allow sessions
 app.use(session({ 
 	secret: 'app', 
@@ -42,9 +21,33 @@ app.use(session({
 
 app.use(cookieParser());
 
-// Serve static content for the app from the "public" directory in the application directory.
-app.use(express.static(process.cwd() + "/public"));
 
+
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
+var hbs = exphbs.create({
+	handlebars: handlebars,
+	defaultLayout: "main",
+	// Specify helpers which are only registered on this instance.
+	helpers: {
+		foo: function (a) { return 'FOO!' + a; },
+		bar: function (b) { return 'BAR!' + b; },
+		breaklines: function(text) {
+			text = handlebars.Utils.escapeExpression(text);
+			text = text.replace(/(\r\n|\n|\r)/gm, '<br>');
+			return new Handlebars.SafeString(text);
+		}
+	} 
+});
+
+app.engine("handlebars", hbs.engine); //setting up file extension
+app.set("view engine", "handlebars"); 
+
+app.use(express.static(process.cwd() + "/public"));
 // Create all our routes and set up logic within those routes where required.
 // ==============================================================================================================================
 //Create GET / render Routes
@@ -56,12 +59,6 @@ app.get('/', function(req, res){
 		userid
 	  });
 })
-// app.get('/', function(req, res){
-
-// 	  res.send('hi') 
-	
-// })
-
 
 app.get('/create', function (req, res) {
 	var username = req.session.user_name;
@@ -155,7 +152,7 @@ app.get('/post/:id', function (req, res) {
 	if (error) throw error;
 	var username = req.session.user_name;
 	var userid = req.session.user_id;
- 
+
 		res.render('pages/post', {
 			data: results,
 			username,
@@ -213,6 +210,7 @@ app.post('/signupform', function (req, res) {
 		// res.send(salt);
 		bcrypt.hash(password, salt, function (err, p_hash) {
 
+			// res.send(p_hash);
 
 			connection.query('INSERT INTO users2 (user_name, password_hash) VALUES (?, ?)', [username, p_hash], function (error, results, fields) {
 
@@ -228,7 +226,8 @@ app.post('/signupform', function (req, res) {
 	});
 });
 
-
+// localhost:3000/login/user_name/password
+// localhost:3000/login?user_name=name&password=name
 app.post('/login', function (req, res) {
 	var username = req.body.username;
 	var password = req.body.password;
@@ -257,6 +256,10 @@ app.post('/login', function (req, res) {
 		}
 	});
 });
+
+
+// app.locals.user = req.session.user_id;
+
 
 
 app.get('/another-page', function (req, res) {
