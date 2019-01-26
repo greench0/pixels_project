@@ -9,11 +9,11 @@ var bcrypt = require('bcryptjs');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
-Handlebars = require('handlebars');
+var handlebars = require('handlebars');
 var exphbs = require("express-handlebars");
 
 var hbs = exphbs.create({
-	handlebars: Handlebars,
+	handlebars: handlebars,
 	defaultLayout: "main",
 	// Specify helpers which are only registered on this instance.
 	helpers: {
