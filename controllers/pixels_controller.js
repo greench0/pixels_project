@@ -3,6 +3,11 @@ var express = require("express");
 var app = express();
 var bcrypt = require('bcryptjs');
 
+// var pixels = require("../models/pixels.js");
+var connection = require ('../config/connection.js');
+var bcrypt = require('bcryptjs');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 
 Handlebars = require('handlebars');
 var exphbs = require("express-handlebars");
@@ -22,12 +27,7 @@ var hbs = exphbs.create({
 app.engine("handlebars", hbs.engine); //setting up file extension
 app.set("view engine", "handlebars"); 
 
-// var pixels = require("../models/pixels.js");
-var connection = require ('../config/connection.js');
 
-var bcrypt = require('bcryptjs');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
 //allow sessions
 app.use(session({ 
 	secret: 'app', 
@@ -38,18 +38,9 @@ app.use(session({
 
 app.use(cookieParser());
 
-
+// Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static(process.cwd() + "/public"));
 
-// manny eample
-// app.get('/currentuser', function(req, res){
-// 	var currentUser = req.session.user_name;
-// 	if(!currentUser){
-// 		return res.send("You need to be logged in to do that");
-// 	} else {
-// 		res.json(currentUser);
-// 	}
-// });
 // Create all our routes and set up logic within those routes where required.
 // ==============================================================================================================================
 //Create GET / render Routes
