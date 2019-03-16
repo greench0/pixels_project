@@ -89,11 +89,11 @@ let colors = [
 // ====================================================================
   // button events to show / hide the grid - strokes
   $("#btn-s-on").click(function () {
-    $(".data").addClass("stroke");
+    $(".data").addClass("grid");
   });
 
   $("#btn-s-off").click(function () {
-    $(".data").removeClass("stroke");
+    $(".data").removeClass("grid");
   });
 
 // ====================================================================
